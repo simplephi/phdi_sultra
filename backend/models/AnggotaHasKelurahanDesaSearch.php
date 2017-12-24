@@ -9,7 +9,10 @@ use common\models\AnggotaHasKelurahanDesa;
 
 /**
  * AnggotaHasKelurahanDesaSearch represents the model behind the search form about `common\models\AnggotaHasKelurahanDesa`.
+ * @property Anggota $anggota
+ * @property KelurahanDesa $kelurahanDesa
  */
+
 class AnggotaHasKelurahanDesaSearch extends AnggotaHasKelurahanDesa
 {
     /**
@@ -18,8 +21,9 @@ class AnggotaHasKelurahanDesaSearch extends AnggotaHasKelurahanDesa
     public function rules()
     {
         return [
-            [['anggota_has_kelurahan_desa_id', 'anggota_id', 'kelurahan_desa_id'], 'integer'],
-            [['jln', 'rt', 'rw', 'mulai', 'akhir', 'ket'], 'safe'],
+            [['anggota_has_kelurahan_desa_id'], 'integer'],
+            [['jln', 'rt', 'rw', 'mulai', 'akhir', 'ket', 'anggota_id', 'kelurahan_desa_id'], 'safe'],
+
         ];
     }
 
@@ -57,11 +61,13 @@ class AnggotaHasKelurahanDesaSearch extends AnggotaHasKelurahanDesa
             return $dataProvider;
         }
 
+        $query->joinWith(['anggota','kelurahanDesa']);
+
         // grid filtering conditions
         $query->andFilterWhere([
             'anggota_has_kelurahan_desa_id' => $this->anggota_has_kelurahan_desa_id,
-            'anggota_id' => $this->anggota_id,
-            'kelurahan_desa_id' => $this->kelurahan_desa_id,
+        //    'anggota_id' => $this->anggota_id,
+        //    'kelurahan_desa_id' => $this->kelurahan_desa_id,
             'mulai' => $this->mulai,
             'akhir' => $this->akhir,
         ]);
@@ -69,7 +75,10 @@ class AnggotaHasKelurahanDesaSearch extends AnggotaHasKelurahanDesa
         $query->andFilterWhere(['like', 'jln', $this->jln])
             ->andFilterWhere(['like', 'rt', $this->rt])
             ->andFilterWhere(['like', 'rw', $this->rw])
-            ->andFilterWhere(['like', 'ket', $this->ket]);
+            ->andFilterWhere(['like', 'ket', $this->ket])
+            ->andFilterWhere(['like', 'anggota.anggota_nama', $this->anggota_id])
+            ->andFilterWhere(['like', 'kelurahanDesa.kelurahan_desa_nama', $this->kelurahan_desa_id])
+            ;
 
         return $dataProvider;
     }

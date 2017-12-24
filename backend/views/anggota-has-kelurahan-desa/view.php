@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\AnggotaHasKelurahanDesa */
 
 $this->title = $model->anggota_has_kelurahan_desa_id;
-$this->params['breadcrumbs'][] = ['label' => 'Anggota Has Kelurahan Desas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Anggota Punya Kelurahan Desa', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="anggota-has-kelurahan-desa-view">
@@ -23,14 +23,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+
+        <?= Html::a('<i class="fa fa-reply" aria-hidden="true"></i> Kembali', ['index'], ['class'=>'btn btn-warning']) ?>
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'anggota_has_kelurahan_desa_id',
-            'anggota_id',
-            'kelurahan_desa_id',
+            'anggota.anggota_nama',
+            'kelurahanDesa.kelurahan_desa_nama',
             'jln',
             'rt',
             'rw',

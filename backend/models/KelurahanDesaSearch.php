@@ -18,8 +18,8 @@ class KelurahanDesaSearch extends KelurahanDesa
     public function rules()
     {
         return [
-            [['kelurahan_desa_id', 'kecamatan_id'], 'integer'],
-            [['kelurahan_desa_kode', 'kelurahan_desa_nama'], 'safe'],
+            [['kelurahan_desa_id'], 'integer'],
+            [['kelurahan_desa_kode', 'kelurahan_desa_nama', 'kecamatan_id'], 'safe'],
         ];
     }
 
@@ -57,14 +57,16 @@ class KelurahanDesaSearch extends KelurahanDesa
             return $dataProvider;
         }
 
+        $query->joinWith('kecamatan');
         // grid filtering conditions
         $query->andFilterWhere([
             'kelurahan_desa_id' => $this->kelurahan_desa_id,
-            'kecamatan_id' => $this->kecamatan_id,
+          //  'kecamatan_id' => $this->kecamatan_id,
         ]);
 
         $query->andFilterWhere(['like', 'kelurahan_desa_kode', $this->kelurahan_desa_kode])
-            ->andFilterWhere(['like', 'kelurahan_desa_nama', $this->kelurahan_desa_nama]);
+            ->andFilterWhere(['like', 'kelurahan_desa_nama', $this->kelurahan_desa_nama])
+            ->andFilterWhere(['like', 'kecamatan.kecamatan_nama', $this->kecamatan_id]);
 
         return $dataProvider;
     }

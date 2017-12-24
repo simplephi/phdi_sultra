@@ -17,8 +17,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'provinsi_nama')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Tambah' : 'Ubah', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-          <?= Html::a('Kembali', ['/provinsi/index'], ['class'=>'btn btn-warning']) ?>
+        <?= Html::submitButton($model->isNewRecord ? '<i class="fa fa-plus" aria-hidden="true"></i> Simpan' : '<i class="fa fa-check" aria-hidden="true"></i> Ubah', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+          <?= Html::a('<i class="fa fa-reply" aria-hidden="true"></i> Kembali', ['index'], ['class'=>'btn btn-danger']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

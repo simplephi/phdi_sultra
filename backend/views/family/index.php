@@ -19,7 +19,7 @@ $this->registerJs($js, \yii\web\View::POS_READY);
 ?>
 <div class="box box-primary">
     <div class="box-header with-border">
-        <?php 
+        <?php
             echo Html::a('<i class="fa fa-plus"></i> Tambah', ['create'], ['class' => 'btn btn-success']).' '.
                 Html::button('<i class="fa fa-history" aria-hidden="true"></i> Refesh', ['class' => 'btn btn-primary btn-fresh']);
         ?>
@@ -28,7 +28,7 @@ $this->registerJs($js, \yii\web\View::POS_READY);
         </div>
     </div>
     <div class="box-body">
-        <?php 
+        <?php
             echo GridView::widget([
                 'dataProvider' => $dataProvider,
                 //'filterModel' => $searchModel,
@@ -56,8 +56,12 @@ $this->registerJs($js, \yii\web\View::POS_READY);
 
                     [
                         'class' => 'kartik\grid\ActionColumn',
-                        'template' => '{update} {delete}',
+                        'template' => '{view} {update} {delete}',
                         'buttons' => [
+                          'view' => function($url, $model) {
+                              $icon = '<i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>';
+                              return Html::a($icon, $url);
+                          },
                             'update' => function($url, $model) {
                                 $icon = '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>';
                                 return Html::a($icon, $url);
@@ -76,7 +80,7 @@ $this->registerJs($js, \yii\web\View::POS_READY);
                 'layout' => '<div class="table-responsive">{items}</div>
                                     <div class="pull-left">{summary}</div>
                                     <div class="pull-right">{pager}</div>',
-            ]); 
+            ]);
         ?>
     </div>
 </div>

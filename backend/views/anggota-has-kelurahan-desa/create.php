@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\AnggotaHasKelurahanDesa */
 
-$this->title = 'Create Anggota Has Kelurahan Desa';
-$this->params['breadcrumbs'][] = ['label' => 'Anggota Has Kelurahan Desas', 'url' => ['index']];
+$this->title = 'Tambah Anggota Punya Kelurahan Desa';
+$this->params['breadcrumbs'][] = ['label' => 'Anggota Punya Kelurahan Desas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="anggota-has-kelurahan-desa-create">

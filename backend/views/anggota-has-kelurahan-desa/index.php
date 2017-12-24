@@ -9,6 +9,13 @@ use kartik\grid\GridView;
 
 $this->title = 'Data Alamat Anggota';
 $this->params['breadcrumbs'][] = $this->title;
+$js = <<< JS
+    $(".btn-fresh").click(function(){
+        $.pjax.reload({container:'#grid_container'});
+    });
+JS;
+$this->registerJs($js, $this::POS_READY);
+
 ?>
 <div class="anggota-has-kelurahan-desa-index">
 
@@ -16,19 +23,31 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('+ Tambah ', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="fa fa-plus" aria-hidden="true"></i> Tambah ', ['create'], ['class' => 'btn btn-success']) ?>
+        <?=  Html::button('<i class="fa fa-history" aria-hidden="true"></i> Refresh', ['class' => 'btn btn-primary btn-fresh']);?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pjax' => true,
+        'pjaxSettings' => [
+            'neverTimeout'=>true,
+            'options' => [
+                'id'=>'grid_container',
+            ],
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-           // 'anggota_has_kelurahan_desa_id',
-            'anggota.anggota_nama',
-            //'anggota_id',
-            //'kelurahan_desa_id',
-            'kelurahanDesa.kelurahan_desa_nama',
+            [
+              'attribute' => 'anggota_id',
+              'value' =>   'anggota.anggota_nama',
+            ],
+
+          [
+            'attribute' => 'kelurahan_desa_id',
+            'value' =>   'kelurahanDesa.kelurahan_desa_nama',
+          ],
             'jln',
             'rt',
             // 'rw',
@@ -36,7 +55,28 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'akhir',
             // 'ket',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'kartik\grid\ActionColumn',
+                'template' => '{view} {update} {delete}',
+                'buttons' => [
+                  'view' => function($url, $model) {
+                      $icon = '<i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i>';
+                      return Html::a($icon, $url);
+                  },
+                    'update' => function($url, $model) {
+                        $icon = '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>';
+                        return Html::a($icon, $url);
+                    },
+                    'delete' => function($url, $model) {
+                        $icon = '<i class="fa fa-trash-o" aria-hidden="true"></i>';
+                        return Html::a($icon, $url, [
+                            'data-confirm' => 'Anda yakin menghapus data ini?',
+                            'data-method' => 'post',
+                            'data-pjax' => '0',
+                        ]);
+                    },
+                ]
+            ],
         ],
     ]); ?>
 </div>

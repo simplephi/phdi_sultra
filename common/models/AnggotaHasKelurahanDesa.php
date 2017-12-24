@@ -53,10 +53,10 @@ class AnggotaHasKelurahanDesa extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'anggota_has_kelurahan_desa_id' => 'Anggota Has Kelurahan Desa ID',
-            'anggota_id' => 'Anggota ID',
-            'kelurahan_desa_id' => 'Kelurahan Desa ID',
-            'jln' => 'Jln',
+            'anggota_has_kelurahan_desa_id' => 'ID Anggota Has Kelurahan Desa ',
+            'anggota_id' => 'Nama Anggota ',
+            'kelurahan_desa_id' => ' Kelurahan Desa ',
+            'jln' => 'Jalan',
             'rt' => 'Rt',
             'rw' => 'Rw',
             'mulai' => 'Mulai',

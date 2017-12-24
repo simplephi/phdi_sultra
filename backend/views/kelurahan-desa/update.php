@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\KelurahanDesa */
 
-$this->title = 'Update Kelurahan Desa: ' . $model->kelurahan_desa_id;
-$this->params['breadcrumbs'][] = ['label' => 'Kelurahan Desas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->kelurahan_desa_id, 'url' => ['view', 'id' => $model->kelurahan_desa_id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Ubah Kelurahan Desa: ' . $model->kelurahan_desa_nama;
+$this->params['breadcrumbs'][] = ['label' => 'Kelurahan Desa', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->kelurahan_desa_nama, 'url' => ['view', 'id' => $model->kelurahan_desa_id]];
+$this->params['breadcrumbs'][] = 'Ubah';
 ?>
 <div class="kelurahan-desa-update">
 

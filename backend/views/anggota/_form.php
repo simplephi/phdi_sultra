@@ -10,7 +10,7 @@ use kartik\date\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model common\models\Anggota */
 /* @var $form yii\widgets\ActiveForm */
-$form = ActiveForm::begin(['type' => ActiveForm::TYPE_HORIZONTAL]);
+$form = ActiveForm::begin(['type' => ActiveForm::TYPE_HORIZONTAL, 'options'=>['enctype'=>'multipart/form-data']]);
 ?>
 <div class="box box-default">
     <div class="box-header with-border">
@@ -47,10 +47,10 @@ $form = ActiveForm::begin(['type' => ActiveForm::TYPE_HORIZONTAL]);
                 'allowClear' => true
                 ],
             ]);
-      
+
         ?>
-      
-        <?= $form->field($model, 'pendidikan_id')->widget(Select2::classname(), [            
+
+        <?= $form->field($model, 'pendidikan_id')->widget(Select2::classname(), [
             'data' => ArrayHelper::map(Pendidikan::find()->all(),'pendidikan_id','pendidikan_nama'),
             'language' => 'en',
            // 'tabindex' => false,
@@ -59,10 +59,17 @@ $form = ActiveForm::begin(['type' => ActiveForm::TYPE_HORIZONTAL]);
                 'allowClear' => true
                 ],
             ]);
-      
+
         ?>
 
-        <?= $form->field($model, 'foto')->textInput(['maxlength' => true]) ?>
+        <!--        <?= $form->field($model, 'foto')->textInput(['maxlength' => true]) ?>-->
+        <?= $form->field($model, 'foto')-> fileInput() ?>
+       <?php
+       if($model->foto){
+          echo '<img src ="'.\yii::$app->request->BaseUrl.'/'.$model->foto.'" width="90px">&nbsp;&nbsp;' ;
+          echo Html::a('Hapus Foto',['anggota/deletefoto','id'=>$model->id], ['class'=>'btn btn-danger']).'<p>';
+       }
+        ?>
 
         <?= $form->field($model, 'jenis_kelamin')->dropDownList([ 'L' => 'L', 'P' => 'P', ], ['prompt' => '']) ?>
     </div>
