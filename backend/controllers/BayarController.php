@@ -8,6 +8,7 @@ use backend\models\BayarSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * BayarController implements the CRUD actions for Bayar model.
@@ -67,10 +68,17 @@ class BayarController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $transaction = Yii::$app->db->beginTransaction();
+
+            $imageName = 'file_'. $model->anggota_id;
+            $model->bukti_file = UploadedFile::getInstance($model, 'bukti_file');
+            $model->bukti_file->saveAs('bukti/' .$imageName. '.' .$model->bukti_file->extension);
+            $model->bukti_file = 'bukti/' .$imageName. '.' .$model->bukti_file->extension;
+
             try {
                 if ($model->save()) {
                     $transaction->commit();
                     Yii::$app->session->setFlash('success','Data berhasil disimpan');
+
                 } else {
                     $transaction->rollBack();
                     Yii::$app->session->setFlash('error','Terjadi kesalahan, Data tidak bisa disimpan');
@@ -99,6 +107,12 @@ class BayarController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $transaction = Yii::$app->db->beginTransaction();
+
+            $imageName = 'file_'. $model->anggota_id;
+            $model->bukti_file = UploadedFile::getInstance($model, 'bukti_file');
+            $model->bukti_file->saveAs('bukti/' .$imageName. '.' .$model->bukti_file->extension);
+            $model->bukti_file = 'bukti/' .$imageName. '.' .$model->bukti_file->extension;
+
             try {
                 if ($model->save()) {
                     $transaction->commit();

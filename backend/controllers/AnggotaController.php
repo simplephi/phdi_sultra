@@ -8,6 +8,7 @@ use backend\models\AnggotaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * AnggotaController implements the CRUD actions for Anggota model.
@@ -66,16 +67,27 @@ class AnggotaController extends Controller
         $model = new Anggota();
 
         if ($model->load(Yii::$app->request->post())) {
+
             $transaction = Yii::$app->db->beginTransaction();
+
+
+            $imageName = 'photo_'. $model->anggota_nama;
+            $model->foto = UploadedFile::getInstance($model, 'foto');
+            $model->foto->saveAs('foto_anggota/' .$imageName. '.' .$model->foto->extension);
+            $model->foto = 'foto_anggota/' .$imageName. '.' .$model->foto->extension;
+
             try {
                 if ($model->save()) {
+
                     $transaction->commit();
                     Yii::$app->session->setFlash('success','Data berhasil disimpan');
-                } else {
+                }
+                else {
                     $transaction->rollBack();
                     Yii::$app->session->setFlash('error','Terjadi kesalahan, Data tidak bisa disimpan');
                 }
-            } catch (\Exception $e) {
+            }
+            catch (\Exception $e) {
                 $transaction->rollBack();
                 Yii::$app->session->setFlash('error','Rollback transaction. Data tidak bisa disimpan');
             }
@@ -99,9 +111,16 @@ class AnggotaController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $transaction = Yii::$app->db->beginTransaction();
+
+            $imageName = 'photo_'. $model->anggota_nama;
+            $model->foto = UploadedFile::getInstance($model, 'foto');
+            $model->foto->saveAs('foto_anggota/' .$imageName. '.' .$model->foto->extension);
+            $model->foto = 'foto_anggota/' .$imageName. '.' .$model->foto->extension;
+
             try {
                 if ($model->save()) {
                     $transaction->commit();
+
                     Yii::$app->session->setFlash('success','Data berhasil disimpan');
                 } else {
                     $transaction->rollBack();
@@ -125,6 +144,23 @@ class AnggotaController extends Controller
      * @param integer $id
      * @return mixed
      */
+
+     public function actionfoto($id){
+       $foto = Anggota::find()->where(['anggota_id' => $id])->one()->foto;
+       if($foto){
+         if(!unlink($foto)){
+            return false;
+         }
+       }
+
+       $anggota = Anggota::findOne($id);
+       $anggota->foto = NULL;
+       $anggota->update();
+       return $this->redirect(['update', 'id' => $id]);
+
+     }
+
+
     public function actionDelete($id)
     {
         $model = $this->findModel($id);

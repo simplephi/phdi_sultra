@@ -7,6 +7,7 @@ use common\models\Pekerjaan;
 use common\models\Pendidikan;
 use kartik\select2\Select2;
 use kartik\date\DatePicker;
+use yii\web\UploadedFile;
 /* @var $this yii\web\View */
 /* @var $model common\models\Anggota */
 /* @var $form yii\widgets\ActiveForm */
@@ -33,6 +34,7 @@ $form = ActiveForm::begin(['type' => ActiveForm::TYPE_HORIZONTAL, 'options'=>['e
                     'options' => ['placeholder' => 'Tanggal Lahir...'],
                     'pluginOptions' => [
                         'format' => 'yyyy-mm-dd',
+                        'autoclose'=>true,
                         'todayHighlight' => true
                     ],
             ]);
@@ -62,12 +64,13 @@ $form = ActiveForm::begin(['type' => ActiveForm::TYPE_HORIZONTAL, 'options'=>['e
 
         ?>
 
-        <!--        <?= $form->field($model, 'foto')->textInput(['maxlength' => true]) ?>-->
+
         <?= $form->field($model, 'foto')-> fileInput() ?>
+
        <?php
        if($model->foto){
-          echo '<img src ="'.\yii::$app->request->BaseUrl.'/'.$model->foto.'" width="90px">&nbsp;&nbsp;' ;
-          echo Html::a('Hapus Foto',['anggota/deletefoto','id'=>$model->id], ['class'=>'btn btn-danger']).'<p>';
+          echo '<p><img src ="'.\yii::$app->request->BaseUrl.'/'.$model->foto.'" width="90px"></p>' ;
+          echo Html::a('Hapus Foto',['anggota/foto','id'=>$model->anggota_id], ['class'=>'btn btn-danger']).'<p>';
        }
         ?>
 

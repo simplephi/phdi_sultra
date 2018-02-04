@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
+//use kartik\money\MaskMoney;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\BayarSearch */
@@ -19,7 +20,7 @@ $this->registerJs($js, \yii\web\View::POS_READY);
 ?>
 <div class="box box-primary">
     <div class="box-header with-border">
-        <?php 
+        <?php
             echo Html::a('<i class="fa fa-plus"></i> Tambah', ['create'], ['class' => 'btn btn-success']).' '.
                 Html::button('<i class="fa fa-history" aria-hidden="true"></i> Refesh', ['class' => 'btn btn-primary btn-fresh']);
         ?>
@@ -28,7 +29,7 @@ $this->registerJs($js, \yii\web\View::POS_READY);
         </div>
     </div>
     <div class="box-body">
-        <?php 
+        <?php
             echo GridView::widget([
                 'dataProvider' => $dataProvider,
                 //'filterModel' => $searchModel,
@@ -45,10 +46,18 @@ $this->registerJs($js, \yii\web\View::POS_READY);
                     //'bayar_id',
                     'anggota.anggota_nama',
                     'bayar_tgl',
-                    'jumlah',
-                    'jenisBayar.jenis_bayar_nama',
-                    'caraBayar.cara_bayar_nama',
-                    
+      //              'jumlah',
+               [
+
+                   //'format' => 'Currency',
+                   'attribute' => 'jumlah',
+                   'value' => function($model){
+                     return 'Rp. '.number_format($model->jumlah,0, ',' , '.').', -';
+                   }
+               ],
+               'jenisBayar.jenis_bayar_nama',
+                      'caraBayar.cara_bayar_nama',
+
                     // 'bukti_file',
                     // 'bayar_bulan',
                     // 'ket',
@@ -76,7 +85,7 @@ $this->registerJs($js, \yii\web\View::POS_READY);
                 'layout' => '<div class="table-responsive">{items}</div>
                                     <div class="pull-left">{summary}</div>
                                     <div class="pull-right">{pager}</div>',
-            ]); 
+            ]);
         ?>
     </div>
 </div>

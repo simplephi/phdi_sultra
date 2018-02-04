@@ -28,6 +28,13 @@ return [
         ]
     ],
     'components' => [
+		'formatter' => [
+			'class' => 'yii\i18n\formatter',
+			'thousandSeparator' => ',',
+			'decimalSeparator' => '.',
+			//'currencyCode' => 'Rp.',
+			'nullDisplay' => '-',
+		],
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],

@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+//use yii\bootstrap\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -35,8 +36,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'anggota_tgl_lahir',
             'pekerjaan.pekerjaan_nama',
             'pendidikan.pendidikan_nama',
-            'foto',
-           
+        //    'foto',
+          [
+            'attribute'=>'Foto',
+            'value'=> \Yii::$app->request->BaseUrl.'/'.$model->foto,
+            'format' => ['image',['width'=>'100px']],
+          ],
         ],
     ]) ?>
 

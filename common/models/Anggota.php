@@ -29,7 +29,6 @@ class Anggota extends \yii\db\ActiveRecord
      * @inheritdoc
      */
 
-     public $foto;
     public static function tableName()
     {
         return 'anggota';
@@ -65,7 +64,7 @@ class Anggota extends \yii\db\ActiveRecord
             'anggota_tgl_lahir' => 'Tgl Lahir',
             'pekerjaan_id' => 'Pekerjaan ',
             'pendidikan_id' => 'Pendidikan ',
-            'foto' => 'Foto',
+            'file' => 'Foto',
             'jenis_kelamin' => 'Jenis Kelamin',
         ];
     }

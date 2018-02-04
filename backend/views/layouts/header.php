@@ -1,5 +1,5 @@
-<?php 
-use yii\helpers\Html; 
+<?php
+use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use mdm\admin\components\Helper;
 $this->registerJs('$(\'.profile\').initial();');
@@ -8,7 +8,7 @@ $this->registerJs('$(\'.profile\').initial();');
 	<nav class="navbar navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<?php 
+				<?php
 					echo Html::a('<b>'.Yii::$app->name.'</b>',Yii::$app->homeUrl,['class' => 'navbar-brand']);
 				?>
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
@@ -25,13 +25,13 @@ $this->registerJs('$(\'.profile\').initial();');
                                                     'icon' => 'credit-card',
                                                     'url' => '#',
                                                     'items' => [
-                            
+
                                                                 ['label' => 'Data Pendidikan', 'url' => ['/pendidikan/index']],
                                                                 ['label' => 'Data Pekerjaan', 'url' => ['/pekerjaan/index']],
                                                                 ['label' => 'Data Kat. Family', 'url' => ['/family-kat/index']],
                                                                 ],
                                                     ],
-                                            
+
                                              [
                                                 'label' => 'Master Data Wilayah',
                                                 'icon' => 'credit-card',
@@ -41,10 +41,10 @@ $this->registerJs('$(\'.profile\').initial();');
                                                             ['label' => 'Kabupaten', 'icon' => 'check-circle', 'url' => ['/kabupaten'],],
                                                             ['label' => 'Kecamatan', 'icon' => 'check-circle', 'url' => ['/kecamatan'],],
                                                             ['label' => 'Kelurahan/Desa', 'icon' => 'check-circle', 'url' => ['/kelurahan-desa'],],
-                                                            
+
                                                             ],
                                                ],
-                                            
+
                                             [
                                                 'label' => 'Kelola Keanggotaan',
                                                 'icon' => 'credit-card',
@@ -52,22 +52,30 @@ $this->registerJs('$(\'.profile\').initial();');
                                                 'items' => [
                                                             ['label' => 'Anggota', 'url' => ['/anggota/index']],
                                                             ['label' => 'Family', 'url' => ['/family/index']],
-                                                            ['label' => 'Alamat', 'url' => ['/anggota-has-kelurahan-desa/index']], 
+                                                            ['label' => 'Alamat', 'url' => ['/anggota-has-kelurahan-desa/index']],
                                                             ],
                                                ],
-                                                
-						['label' => 'Kelola Pembayaran', 'url' => ['/bayar/index']],
-                                            
-                                           
-                                            
-                                            
+
+						[
+						'label' => 'Kelola Pembayaran',
+						 'url' => ['#'],
+						 'items' => [
+												 ['label' => 'Rekap Wilayah', 'url' => ['/rekap-wilayah/index']],
+												 ['label' => 'Rekap Anggota', 'url' => ['/rekap-anggota/index']],
+												 ['label' => 'Rekapitulasi', 'url' => ['/bayar/index']],
+										],
+					],
+
+
+
+
                                             ];
 					echo Nav::widget([
 						'options' => ['class' => 'navbar-nav'],
 						'encodeLabels' => false,
 						'items' => Helper::filter($itemsLeft),
 					]);
-					
+
 					$itemsRightUser = [
 						'<li class="dropdown user user-menu active">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -109,8 +117,8 @@ $this->registerJs('$(\'.profile\').initial();');
 							],
 						],
 					];
-					
-					
+
+
 					echo Nav::widget([
 						'options' => ['class' => 'navbar-nav navbar-right'],
 						'encodeLabels' => false,
@@ -130,5 +138,20 @@ $this->registerJs('$(\'.profile\').initial();');
 				?>
 			</div>
 		</div>
-	</nav>	
+	</nav>
+
+  <script>
+    $(function () {
+      $('#example1').DataTable()
+      $('#example2').DataTable({
+        'paging'      : true,
+        'lengthChange': false,
+        'searching'   : false,
+        'ordering'    : true,
+        'info'        : true,
+        'autoWidth'   : false
+      })
+    })
+  </script>
+
 </header>

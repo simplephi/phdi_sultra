@@ -4,10 +4,12 @@ use yii\helpers\Html;
 use kartik\form\ActiveForm;
 use yii\helpers\ArrayHelper;
 use common\models\Anggota;
+use common\models\customs\abayar;
 use common\models\CaraBayar;
 use common\models\JenisBayar;
 use kartik\select2\Select2;
-use kartik\date\DatePicker;
+use kartik\datetime\DateTimePicker;
+use kartik\money\MaskMoney;
 /* @var $this yii\web\View */
 /* @var $model common\models\Bayar */
 /* @var $form yii\widgets\ActiveForm */
@@ -36,16 +38,22 @@ $form = ActiveForm::begin(['type' => ActiveForm::TYPE_HORIZONTAL]);
 
         <?php
             echo $form->field($model, 'bayar_tgl')
-                ->widget(DatePicker::classname(), [
+                ->widget(DateTimePicker::classname(), [
                     'options' => ['placeholder' => 'Tanggal Pembayaran...'],
                     'pluginOptions' => [
-                        'format' => 'yyyy-mm-dd',
+                         'format' => 'yyyy-mm-dd hh:ii:ss',
+                          'autoclose'=>true,
                         'todayHighlight' => true
                     ],
             ]);
         ?>
 
-        <?= $form->field($model, 'jumlah')->textInput() ?>
+        <?= $form->field($model, 'jumlah')->widget(MaskMoney::classname(), [
+               'options' => [
+                   'placeholder' => 'Masukkan Jumlah Uang...'
+               ],
+
+        ]) ?>
 
 
          <?= $form->field($model, 'cara_bayar_id')->widget(Select2::classname(), [
@@ -69,10 +77,11 @@ $form = ActiveForm::begin(['type' => ActiveForm::TYPE_HORIZONTAL]);
                 ],
             ]);
         ?>
-        
-        <?= $form->field($model, 'bukti_file')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'bayar_bulan')->textInput() ?>
+
+        <?= $form->field($model, 'bukti_file')-> fileInput() ?>
+        
+        <?= $form->field($model, 'bayar_bulan')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'ket')->textInput(['maxlength' => true]) ?>
 

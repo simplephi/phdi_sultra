@@ -24,11 +24,11 @@ use dmstr\widgets\Alert;
                 }
                 echo Breadcrumbs::widget(
                         ['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs']:[],]
-                    ) 
+                    )
             ?>
         </section>
         <section class="content">
-            <?php 
+            <?php
                 echo Alert::widget();
                 echo $content;
             ?>
@@ -37,6 +37,20 @@ use dmstr\widgets\Alert;
 </div>
 
 <footer class="main-footer">
+
+  <script>
+    $(function () {
+      $('#example1').DataTable()
+      $('#example2').DataTable({
+        'paging'      : true,
+        'lengthChange': false,
+        'searching'   : false,
+        'ordering'    : true,
+        'info'        : true,
+        'autoWidth'   : false
+      })
+    })
+  </script>
     <div class="pull-right hidden-xs">
         <b>Version</b> 1.0
     </div>
